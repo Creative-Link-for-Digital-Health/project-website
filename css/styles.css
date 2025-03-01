@@ -1,0 +1,233 @@
+/* Base styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Header */
+.header {
+    background-color: #003366;
+    color: white;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.uk-logo {
+    height: 30px;
+}
+
+/* Hero section */
+.hero {
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.hero-text {
+    position: absolute;
+    z-index: 2;
+    color: #0033a0;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 0 15px;
+    line-height: 1.2;
+}
+
+/* Main content */
+.content {
+    padding: 15px;
+}
+
+.description {
+    padding: 0 0 15px 0;
+    font-size: 14px;
+}
+
+/* Membership section */
+.membership {
+    background-color: #0080ff;
+    color: white;
+    padding: 15px;
+}
+
+.membership-header {
+    margin-top: 0;
+    font-size: 20px;
+    text-align: left;
+}
+
+.membership-image {
+    width: 100%;
+    height: auto;
+    max-height: 130px;
+    object-fit: cover;
+    margin: 10px 0;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.membership-button {
+    background-color: #003366;
+    color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+    padding: 8px 15px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.member-type {
+    margin-top: 25px;
+}
+
+.member-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Collaborators section */
+.collaborators {
+    padding: 15px;
+}
+
+.collaborators-header {
+    color: #003366;
+    font-size: 20px;
+}
+
+.collaborator-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.collaborator-list li {
+    margin-bottom: 8px;
+}
+
+.collaborator-list a {
+    color: #0033a0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Contact section */
+.contact {
+    padding: 15px;
+}
+
+.contact-header {
+    color: #003366;
+    font-size: 20px;
+}
+
+.contact a {
+    color: #0033a0;
+    text-decoration: none;
+}
+
+/* Footer */
+.footer {
+    background-color: #00237a;
+    color: white;
+    padding: 15px;
+    font-size: 12px;
+}
+
+.footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer p {
+    margin: 8px 0;
+}
+
+/* Media queries for responsive design */
+@media (min-width: 768px) {
+    /* Tablet and larger */
+    .hero {
+        height: 180px;
+    }
+    
+    .hero-text {
+        font-size: 24px;
+    }
+    
+    .content, .membership, .collaborators, .contact {
+        padding: 20px;
+    }
+    
+    .description {
+        font-size: 16px;
+    }
+    
+    .button-container {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    
+    .membership-button {
+        display: inline-block;
+        padding: 10px 20px;
+    }
+    
+    .membership-header, .collaborators-header, .contact-header {
+        font-size: 24px;
+    }
+    
+    .member-header {
+        font-size: 20px;
+    }
+    
+    .footer {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Desktop */
+    .hero {
+        height: 200px;
+    }
+    
+    .hero-text {
+        font-size: 28px;
+        padding: 0 20px;
+    }
+    
+    .content, .membership, .collaborators, .contact {
+        padding: 25px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .description {
+        max-width: 800px;
+    }
+    
+    .membership-image {
+        max-height: 150px;
+    }
+}
