@@ -1,82 +1,120 @@
 /* Base styles */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100%;
     margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    font-size: 16px;
+    font-family: Arial, sans-serif;
+    line-height: 20px;
+    font-size: 14px;
+    overflow: auto
+}
+
+.body-text {
+    color: #333333;
+    padding-bottom: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
 }
 
 /* Header */
 .header {
-    background-color: #c722b7;
-    color: white;
-    padding: 5px 15px;
+    grid-column-gap: 20px;
+    background-color: #0033a0;
+    align-items: flex-start;
+    padding: 5px 20px;
+    text-decoration: none;
     display: flex;
-    align-items: center;
 }
 
 .uk-logo {
-    height: 30px;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 29px;
+    text-decoration: none;
+    display: flex;
 }
 
 /* Hero section */
 .hero {
-    position: relative;
-    height: 150px;
-    overflow: hidden;
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 372px;
     display: flex;
-    align-items: center;
 }
 
-.hero-image {
-    position: absolute;
+.text-frame {
+    background-image: linear-gradient(90deg, rgba(217, 217, 217, .69) 57%, rgba(115, 115, 115, 0));;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 20px;
+    display: flex;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.8;
-    z-index: 1;
 }
 
 .hero-text {
-    position: absolute;
-    z-index: 2;
     color: #0033a0;
-    font-weight: bold;
-    font-size: 22px;
-    padding: 0 15px;
-    line-height: 1.2;
+    flex; 0 auto;
+    margin-top: 0;
+    margin-buttom: 0;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 42px;
+    line-height: 100%;
+    text-decoration: none;
+    display: block;
 }
 
 /* Main content */
 .content {
-    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 120px;
+    font-weight: 400;
+    text-decoration: none;
+    display: flex
 }
 
 .description {
-    padding: 0 0 15px 0;
-    font-size: 14px;
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-decoration: none;
 }
 
 /* Membership section */
 .membership {
     background-color: #0080ff;
     color: white;
-    padding: 15px;
+    padding: 20px;
 }
 
 .membership-header {
-    margin-top: 0;
-    font-size: 20px;
-    text-align: left;
+    width: 100%
+    padding-left: 20px;
+    padding-right: 20px;
+    bottom-padding: 20px;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 100%;
 }
 
 .membership-image {
     width: 100%;
-    height: auto;
-    max-height: 130px;
     object-fit: cover;
-    margin: 10px 0;
+}
+
+img {
+    display: block;
 }
 
 .button-container {
@@ -84,18 +122,24 @@ body {
     flex-direction: column;
     gap: 10px;
     margin: 15px 0;
+    padding-top: 40px;
+    padding-bottom: 60px;
 }
 
 .membership-button {
-    background-color: #003366;
+    background-color: #0033a1;
     color: white;
-    border: 2px solid white;
+    border: 4px solid white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 100%;
+    font-size: 20px;
     border-radius: 30px;
-    padding: 8px 15px;
+    padding: 20px 50px;
     text-decoration: none;
     display: block;
     text-align: center;
-    font-size: 14px;
+
 }
 
 .member-type {
@@ -103,18 +147,24 @@ body {
 }
 
 .member-header {
-    font-size: 18px;
-    margin-bottom: 10px;
+    width: 100%
+    font-weight: 900px;
+    margin-bottom: 20px;
 }
 
 /* Collaborators section */
 .collaborators {
-    padding: 15px;
+    font-size: 20px
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
+    
 }
 
 .collaborators-header {
-    color: #003366;
-    font-size: 20px;
+    color: #0033a0;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 100%;
 }
 
 .collaborator-list {
@@ -129,7 +179,6 @@ body {
 .collaborator-list a {
     color: #0033a0;
     text-decoration: none;
-    font-size: 14px;
 }
 
 /* Contact section */
@@ -138,8 +187,10 @@ body {
 }
 
 .contact-header {
-    color: #003366;
-    font-size: 20px;
+    color: #0033a0;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 100%;
 }
 
 .contact a {
@@ -149,10 +200,21 @@ body {
 
 /* Footer */
 .footer {
-    background-color: #00237a;
+    background-color: #0033a0;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 331px;
+    padding: 40px;
+    display: flex;
+}
+.footer-text {
+    background-color: #0033a0;
+    letter-spacing: .03em;
     color: white;
-    padding: 15px;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
 }
 
 .footer a {
@@ -165,10 +227,11 @@ body {
 }
 
 /* Media queries for responsive design */
-@media (min-width: 768px) {
+@media (max-width: 479px) {
     /* Tablet and larger */
     .hero {
-        height: 180px;
+        height: 200px;
+        min-height: 200px;
     }
     
     .hero-text {
@@ -206,7 +269,7 @@ body {
     }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
     /* Desktop */
     .hero {
         height: 200px;
@@ -218,9 +281,8 @@ body {
     }
     
     .content, .membership, .collaborators, .contact {
-        padding: 25px;
-        max-width: 1200px;
-        margin: 0 auto;
+        padding-left: 60px;
+        padding-right: 60px;
     }
     
     .description {
