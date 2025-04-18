@@ -148,6 +148,11 @@ img {
     cursor: pointer;
 
 }
+
+a {
+    text-decoration: none;
+} 
+
 .membership-button a {
     color: white;
     text-decoration: none;
@@ -155,12 +160,15 @@ img {
 
 .membership-button:hover {
     background-color: white;
-    color: #0033a1;
     transform:scale(1.1);
     transition: all 0.3s ease;
+    color: #0033a1;
+    text-decoration: none;
 }
+
+
 .membership-button:visited {
-    color: white;
+    color: #0033a1;
     text-decoration: none;
 }
 
