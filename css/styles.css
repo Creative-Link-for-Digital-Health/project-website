@@ -184,6 +184,7 @@ a {
 
 /* Collaborators section */
 .collaborators {
+    padding: 50px 120px 50px;
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 10px;
@@ -201,12 +202,11 @@ a {
 
 .collaborator-list {
     list-style-type: none;
-    padding-top: 40px;
-    padding-left: 60px;
 }
 
 .collaborator-list li {
     margin-bottom: 10px;
+    line-height: 50px;
 }
 
 .collaborator-list a {
@@ -223,7 +223,9 @@ a {
     font-weight: 900;
     line-height: 100%;
 }
-
+.contact {
+    padding-top: 10px;
+}
 .contact a {
     color: #0033a0;
     text-decoration: none;
@@ -268,11 +270,24 @@ a {
     .hero-text {
         font-size: 24px;
     }
-    
-    .content, .membership, .collaborators, .contact {
+    .membership {
+        padding-bottom: 50px;
+    }
+    .content, .collaborators {
         padding: 20px;
     }
+    .contact {
+        padding-right: 0px; 
+        padding-left: 0px;
+    }
+    .collaborator-list {
+        list-style-type: none;
+    }
     
+    .collaborator-list li {
+        margin-bottom: 10px;
+        line-height: 30px;
+    }
     .description {
         font-size: 16px;
     }
@@ -280,12 +295,15 @@ a {
     .button-container {
         flex-direction: column;
         justify-content: space-evenly;
+        padding-bottom: 10px;
+        padding-top: 10px;
    
     }
     
     .membership-button {
         display: inline-block;
         padding: 10px 20px;
+        min-width: 320px;
     }
     
     .membership-header, .collaborators-header, .contact-header {
@@ -298,6 +316,8 @@ a {
     
     .footer {
         font-size: 14px;
+        padding: 20px 50px;
+
     }
 }
 
@@ -312,9 +332,14 @@ a {
         padding: 0 20px;
     }
     
-    .content, .membership, .collaborators, .contact {
+    .content, .membership, .collaborators {
         padding-left: 60px;
         padding-right: 60px;
+    }
+    .contact {
+        padding-right: 0px; 
+        padding-left: 0px;
+        padding-top: 10px;
     }
     
     .description {
@@ -323,5 +348,9 @@ a {
     
     .membership-image {
         max-height: 150px;
+    }
+    .footer {
+        font-size: 14px;
+        padding: 20px 50px;
     }
 }
