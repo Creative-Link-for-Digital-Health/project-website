@@ -297,6 +297,7 @@ a {
         justify-content: space-evenly;
         padding-bottom: 10px;
         padding-top: 10px;
+        gap: 20px;
    
     }
     
@@ -347,10 +348,11 @@ a {
     }
     
     .membership-image {
-        max-height: 150px;
+        min-height: 150px;
+
     }
     .footer {
         font-size: 14px;
-        padding: 20px 50px;
+        padding: 40px 50px;
     }
 }
