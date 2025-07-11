@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Link Project Library</title>
+  <style>
+    @font-face {
+      font-family: 'Sugo Pro Display ExtraLight';
+      src: url('https://creative-link-branding.s3.amazonaws.com/SugoProDisplay-ExtraLight.woff2') format('woff2');
+      font-weight: 200;
+    }
+    @font-face {
+      font-family: 'Saya FY W04 Black';
+      src: url('https://creative-link-branding.s3.amazonaws.com/SayaFYW04-Black.woff2') format('woff2');
+      font-weight: 900;
+    }
+    :root {
+      --primary: #0033A0;
+      --accent: #1E8AFF;
+      --neutral: #DCDDDE;
+      --bg: #f0f4f8;
+      --font-main: 'Sugo Pro Display ExtraLight', sans-serif;
+      --font-header: 'Saya FY W04 Black', sans-serif;
+    }
+    body {
+      font-family: var(--font-main);
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: #1B365D;
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+    header h1 {
+      font-family: var(--font-header);
+      margin: 0;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+    .logo-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+    }
+    .logo-wrapper img {
+      height: 100px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .product-card {
+      display: flex;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: background 0.3s, outline 0.3s;
+      position: relative;
+    }
+    .product-card.selected {
+      outline: 2px solid rgba(30, 138, 255, 0.6);
+      box-shadow: 0 0 10px rgba(30, 138, 255, 0.3);
+      background: #e6f2ff;
+    }
+    .product-image {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      background-color: white;
+      object-fit: contain;
+    }
+    .product-info {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .product-info h2 {
+      font-family: var(--font-header);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+    }
+    .product-info p {
+      margin: 0.5rem 0;
+    }
+    .collaborators {
+      font-size: 0.9rem;
+      color: #4a5a6a;
+      margin-top: 0.75rem;
+    }
+    .cover-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .cover-link:hover {
+      text-decoration: underline;
+    }
+    .product-card:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+      transition: all 0.2s ease;
+    }
+    mark {
+      background-color: rgba(30, 138, 255, 0.2);
+      padding: 0 3px;
+      border-radius: 4px;
+      box-shadow: 0 0 4px rgba(30, 138, 255, 0.2);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .click-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="max-width: 1000px; margin: auto; padding: 1rem 1rem 0.5rem 1rem; position: relative;">
+      <div class="logo-wrapper">
+        <img src="https://raw.githubusercontent.com/Creative-Link-for-Digital-Health/Creative-Link-Branding/main/logo_for_social_media_300X300.png" alt="Creative Link Logo">
+      </div>
+      <h1>Creative Link Project Library</h1>
+    </div>
+  </header>
+  <div class="container">
+    <input type="text" id="searchInput" placeholder="Search projects..." autocomplete="off">
+    <p id="noResults" style="display: none; text-align: center; color: gray; margin-top: 2rem;">No projects match your search.</p>
+    <div id="cardContainer"></div>
+  </div>
+  <footer style="text-align: center; padding: 2rem 1rem; background: var(--neutral); font-size: 0.9rem;">
+    Authors / Contributors: Creative Link for Digital Health Team<br>
+    <span id="updated-date">Updated on: June 2025</span>
+  </footer>
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const container = document.getElementById("cardContainer");
+    const noResults = document.getElementById("noResults");
+    let currentIndex = -1;
+
+    const updatedDate = new Date();
+    document.getElementById('updated-date').textContent = `Updated on: ${updatedDate.toDateString()}`;
+
+    // ESC to reset search and highlight
+    document.addEventListener("keydown", function (e) {
+      const cards = document.querySelectorAll(".product-card");
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        renderCards();
+        return;
+      }
+      if (cards.length === 0) return;
+      if (e.key === "ArrowDown") {
+        currentIndex = (currentIndex + 1) % cards.length;
+        highlightCard(currentIndex);
+        e.preventDefault();
+      } else if (e.key === "ArrowUp") {
+        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+        highlightCard(currentIndex);
+        e.preventDefault();
+      } else if (e.key === "Enter" && currentIndex >= 0) {
+        const link = cards[currentIndex].querySelector(".cover-link");
+        if (link) window.open(link.href, "_blank");
+      }
+    });
+
+    function highlightCard(index) {
+      const cards = document.querySelectorAll(".product-card");
+      cards.forEach((card, i) => {
+        card.classList.toggle("selected", i === index);
+      });
+    }
+
+    function highlightText(text, query) {
+      const pattern = new RegExp(`(${query})`, "gi");
+      return text.replace(pattern, '<mark>$1</mark>');
+    }
+
+    function renderCards(filtered = projects, query = "") {
+      container.innerHTML = "";
+      let found = false;
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+      filtered.forEach((proj, i) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        const imgStyle = proj.noFit ? "object-fit: none;" : "object-fit: contain;";
+        const title = query ? highlightText(proj.title, query) : proj.title;
+        const desc = query ? highlightText(proj.desc, query) : proj.desc;
+        card.innerHTML = `
+          <div class="click-overlay" onclick="window.open('${proj.link}', '_blank')"></div>
+          <img class="product-image" src="${proj.img}" alt="${proj.title}" style="${imgStyle}">
+          <div class="product-info">
+            <div>
+              <h2>${title}</h2>
+              <p>${desc}</p>
+              <div class="collaborators">Contributors: Creative Link Team</div>
+            </div>
+            <a class="cover-link" href="${proj.link}" target="_blank">→ View Project Page</a>
+          </div>
+        `;
+        container.appendChild(card);
+        found = true;
+      });
+      noResults.style.display = found ? "none" : "block";
+      currentIndex = -1;
+    }
+
+    const projects = [
+      {
+        title: "Creative Link Mechanical Switch",
+        desc: "A mechanical accessibility switch designed for ease of use and durability.",
+        img: "https://raw.githubusercontent.com/Creative-Link-for-Digital-Health/creative-link-mechanical-switch/main/assets/printed_switch.png",
+        link: "https://creative-link-for-digital-health.github.io/creative-link-mechanical-switch/index.html",
+        noFit: true
+      },
+      {
+        title: "Redefining Diabetes Care",
+        desc: "Inferring A1C levels from breath using AI research at UKY CAAI.",
+        img: "https://caai.ai.uky.edu/wp-content/uploads/2023/11/breath-out.jpg",
+        link: "https://caai.ai.uky.edu/redefining-diabetes-care-inferring-a1c-from-breath/"
+      },
+      {
+        title: "SynthConvo - Conversation Generator",
+        desc: "A dynamic text generator for patient-centered conversation design.",
+        img: "https://raw.githubusercontent.com/Creative-Link-for-Digital-Health/Creative-Link-Branding/main/logo_for_social_media_300X300.png",
+        link: "https://creative-link-for-digital-health.github.io/SynthConvo/index.html"
+      },
+      {
+        title: "Toys with a Purpose",
+        desc: "Therapeutic toys designed for developmental support.",
+        img: "https://toyswithapurposeky.com/assets/toys_w_purpose_logo_color.svg",
+        link: "https://toyswithapurposeky.com/"
+      },
+      {
+        title: "Wearable Word Board",
+        desc: "A wearable device for communication through pre-set word inputs.",
+        img: "https://raw.githubusercontent.com/Creative-Link-for-Digital-Health/wearable-word-board/main/assets/alphaBraceletDetail.png",
+        link: "https://creative-link-for-digital-health.github.io/wearable-word-board/index.html",
+        noFit: true
+      }
+    ];
+
+    searchInput.addEventListener("input", function () {
+      const val = this.value.trim();
+      if (!val) {
+        renderCards();
+        return;
+      }
+      const fuse = new Fuse(projects, {
+        keys: ['title', 'desc'],
+        threshold: 0.4
+      });
+      const results = fuse.search(val).map(res => res.item);
+      renderCards(results, val);
+    });
+
+    renderCards();
+  </script>
+</body>
+</html>
